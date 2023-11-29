@@ -1,0 +1,149 @@
+<!-- app.component.html -->
+<mat-card class="mat-card">
+  <mat-card-header class="mat-card-header">
+    <mat-card-title>Vitraya OPD Adjudication</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form>
+      <mat-form-field class="full-width">
+        <mat-label>Select a diagnosis</mat-label>
+        <mat-select
+          id="dropdown"
+          [formControl]="selectedDiagnosis"
+          (selectionChange)="onOptionChange()"
+          multiple
+        >
+          <ng-container *ngFor="let diagnosis of dignosisList">
+            <mat-option [value]="diagnosis.icd_code"
+              >{{ diagnosis.diagnosis }} - {{ diagnosis.icd_code }}</mat-option
+            >
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+      <ng-container *ngIf="false">
+        <div class="center">
+          <mat-form-field>
+            <mat-label>Select Gender</mat-label>
+            <mat-select
+              id="dropdown"
+              [formControl]="selectedAge"
+              (selectionChange)="onOptionChange()"
+            >
+              <mat-option value="male">Male</mat-option>
+
+              <mat-option value="female">Female</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input
+              matInput
+              placeholder="age"
+              class="description-input"
+              type="number"
+            />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Date of visit</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              readonly
+              (click)="picker.open()"
+            />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field style="min-width: 30%">
+            <mat-label>Date of Last Paid Consultation</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker2"
+              readonly
+              (click)="picker2.open()"
+            />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="picker2"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+      <form [formGroup]="form">
+        <div
+          formArrayName="bill_line_item_details"
+          *ngIf="selectedDiagnosis.valid"
+        >
+          <div
+            *ngFor="
+              let detail of bill_line_item_details.controls;
+              let i = index
+            "
+            class="mb-3 form-inline"
+            [formGroupName]="i"
+          >
+            <mat-form-field class="full-width2">
+              <input
+                matInput
+                placeholder="Description"
+                formControlName="description"
+                class="description-input"
+              />
+            </mat-form-field>
+
+            <mat-form-field class="full-width2">
+              <input
+                matInput
+                type="number"
+                placeholder="Quantity"
+                formControlName="quantity"
+                class="quantity-input"
+              />
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="addDetails()"
+              class="mr-3"
+            >
+              Add
+            </button>
+
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="removeDetails(i)"
+              class="ml-3"
+            >
+              remove
+            </button>
+          </div>
+        </div>
+
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onSubmit()"
+          style="min-width: 70%; margin-left: 15%"
+        >
+          Submit
+        </button>
+      </form>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<ng-container *ngIf="medicalData">
+  <app-medical-accordion [medicalData]="medicalData"></app-medical-accordion>
+</ng-container>

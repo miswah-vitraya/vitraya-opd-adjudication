@@ -1,0 +1,34 @@
+<div class="container" style="margin-left: 15%; max-width: 70%">
+  <h6 class="opd-details">OPD Details</h6>
+  <mat-accordion *ngIf="medicalData && medicalData.data">
+    <mat-expansion-panel *ngFor="let category of keys">
+      <mat-expansion-panel-header>
+        <mat-panel-title>{{ category | titlecase }}</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div *ngFor="let item of medicalData.data[category]">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ item?.description }}</mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="medical-item-content">
+            <p>Quantity: {{ item?.quantity }}</p>
+            <p>
+              Medically Admissible:
+              {{ item?.medically_admissible ? "Allowed" : "Not Allowed" }}
+            </p>
+            <p>
+              Medically Admissible Comment:
+              {{ item?.medically_admissible_comment }}
+            </p>
+            <p *ngIf="item?.investigation_name">
+              Investigation Name: {{ item?.investigation_name }}
+            </p>
+            <p *ngIf="item?.brand_name">Brand Name: {{ item?.brand_name }}</p>
+            <p *ngIf="item?.drug_name">Drug Name: {{ item?.drug_name }}</p>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

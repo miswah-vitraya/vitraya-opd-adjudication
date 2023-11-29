@@ -1,0 +1,44 @@
+/* styles.css */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.mat-card {
+  min-width: 400px;
+  max-width: 70%;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.full-width2 {
+  width: 40%; /* Each input takes 40% of the available space */
+  margin-right: 20px; /* Add some spacing between the inputs */
+}
+
+.form-inline {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.description-input {
+  width: 80%; /* Set the width of the description input to 80% */
+}
+
+.mat-card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  color: #3f51b5;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5%;
+}
